@@ -17,54 +17,71 @@
                             <a title="This answer is not useful" class="vote-down off">
                                 <i class="fas fa-caret-down fa-2x"></i>
                             </a>
-                            <a title="Mark this answer as best answer" class="{{ $answer->status }} mt-2">
+                        @can("accept", $answer)
+                            <a title="Mark this answer as best answer"
+                                class="{{ $answer->status }} mt-2"
+                                onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit()"
+                                >
                                 <i class="fas fa-check fa-2x"></i>
                             </a>
-                        </div>
+                            <form id="accept-answer-{{ $answer->id }}" action="{{ route('answers.accept', $answer->id) }}" method="post" style="display: none;">
+                                @csrf
 
-                        <div class="media-body">
-                            <p>
-                                {!! $answer->body !!}
-                            </p>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="ml-auto">
-                                        @can("update", $answer)
-                                            <a href="{{ route("questions.answers.edit", [$question->id, $answer->id]) }}" class="btn btn-sm btn-outline-info">
-                                                Edit
-                                            </a>
-                                        @endcan
-                                        @can("delete", $answer)
-                                            <form class="form-delete" method="post" action="{{ route('questions.answers.destroy', [$question->id, $answer->id]) }}">
-                                                @csrf
-                                                @method("DELETE")
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                            </form>
-                                        @endcan
-                                    </div>
-                                </div>
-                                <div class="col-4">
+                            </form>
+                        @else
+                            @if ($answer->is_best)
+                                <a title="This question owner accepted this answer as best answer"
+                                    class="{{ $answer->status }} mt-2"
+                                    >
+                                    <i class="fas fa-check fa-2x"></i>
+                                </a>
+                            @endif
+                        @endcan
+                    </div>
 
-                                </div>
-                                <div class="col-4">
-                                    <span class="text-muted">Answered {{ $answer->created_date }}</span>
-                                    <div class="media mt-2">
-                                        <a class="pr-2" href="{{ $answer->user->url }}">
-                                            <img class="media-object" src="{{ $answer->user->avatar }}" alt="">
+                    <div class="media-body">
+                        <p>
+                            {!! $answer->body !!}
+                        </p>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="ml-auto">
+                                    @can("update", $answer)
+                                        <a href="{{ route("questions.answers.edit", [$question->id, $answer->id]) }}" class="btn btn-sm btn-outline-info">
+                                            Edit
                                         </a>
-                                        <div class="media-body mt-1">
-                                            <a href="{{ $answer->user->url }}">{{ $answer->user->name }}</a>
-                                        </div>
+                                    @endcan
+                                    @can("delete", $answer)
+                                        <form class="form-delete" method="post" action="{{ route('questions.answers.destroy', [$question->id, $answer->id]) }}">
+                                            @csrf
+                                            @method("DELETE")
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                        </form>
+                                    @endcan
+                                </div>
+                            </div>
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-4">
+                                <span class="text-muted">Answered {{ $answer->created_date }}</span>
+                                <div class="media mt-2">
+                                    <a class="pr-2" href="{{ $answer->user->url }}">
+                                        <img class="media-object" src="{{ $answer->user->avatar }}" alt="">
+                                    </a>
+                                    <div class="media-body mt-1">
+                                        <a href="{{ $answer->user->url }}">{{ $answer->user->name }}</a>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                    </div>
 
-                    <hr />
-                @endforeach
-            </div>
+                    </div>
+                </div>
+
+                <hr />
+            @endforeach
         </div>
     </div>
+</div>
 </div>
