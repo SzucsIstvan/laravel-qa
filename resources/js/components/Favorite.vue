@@ -29,9 +29,6 @@
                 return `/questions/${this.id}/favorites`
             },
 
-            signedIn () {
-                return window.Auth.signedIn;
-            }
         },
 
         methods: {
