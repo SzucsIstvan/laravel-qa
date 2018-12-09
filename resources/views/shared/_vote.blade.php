@@ -25,7 +25,7 @@
     </a>
     <form id="up-vote-{{ $formId }}" action="{{ $formAction }}" method="post" style="display: none;">
         @csrf
-        <input type="hidden" name="vote" value="1" />
+        <input type="hidden" nFavoriteame="vote" value="1" />
     </form>
     <span class="votes-count">{{ $model->votes_count }}</span>
     <a title="This {{ $name }} is not useful"
@@ -42,8 +42,6 @@
     @if ($model instanceof App\Question)
         <favorite :question="{{ $model }}"></favorite>
     @elseif ($model instanceof App\Answer)
-        @include('shared._accept', [
-            "model" => $model
-        ])
+        <accept :answer="{{ $model }}"></accept>
     @endif
 </div>

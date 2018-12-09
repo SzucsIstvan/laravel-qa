@@ -1,6 +1,3 @@
-@php
-    echo $model instanceof App\Answer;
-@endphp
 @can("accept", $model)
     <a title="Mark this answer as best answer"
         class="{{ $model->status }} mt-2"

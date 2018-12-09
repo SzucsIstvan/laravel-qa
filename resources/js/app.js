@@ -25,6 +25,7 @@ Vue.use(VueIziToast);
 Vue.component('user-info', require('./components/UserInfo.vue'));
 Vue.component('answer', require('./components/Answer.vue'));
 Vue.component('favorite', require('./components/Favorite.vue'));
+Vue.component('accept', require('./components/Accept.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
