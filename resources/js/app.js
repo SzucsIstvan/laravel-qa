@@ -26,9 +26,8 @@ Vue.use(Authorization);
  */
 
 Vue.component('user-info', require('./components/UserInfo.vue'));
-Vue.component('answer', require('./components/Answer.vue'));
-
 Vue.component('vote', require('./components/Vote.vue'));
+Vue.component('answers', require('./components/Answers.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
